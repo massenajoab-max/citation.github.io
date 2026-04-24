@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page de Bienvenue</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .welcome-container {
+            text-align: center;
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            max-width: 500px;
+            width: 90%;
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 0.5rem;
+            font-size: 2.2rem;
+        }
+        
+        .welcome-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #667eea;
+        }
+        
+        p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+        
+        .welcome-message {
+            background: #f0f4ff;
+            padding: 1rem;
+            border-radius: 5px;
+            margin: 1.5rem 0;
+            font-style: italic;
+            border-left: 4px solid #667eea;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .datetime {
+            font-size: 0.9rem;
+            color: #999;
+            margin-top: 1.5rem;
+        }
+        
+        @media (max-width: 600px) {
+            .welcome-container {
+                padding: 1.5rem;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .welcome-icon {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="welcome-container">
+        <div class="welcome-icon">🎉</div>
+        <h1>Bienvenue !</h1>
+        <p>Citations du jour</p>
+        
+        <div class="welcome-message" id="welcomeMessage">
+            Chaque grand voyage commence par un premier pas. 
+            Nous sommes là pour vous accompagner dans cette aventure !
+        </div>
+        
+        <button class="btn" onclick="changeMessage()">Nouveau message</button>
+        
+        <div class="datetime" id="datetime"></div>
+    </div>
+
+    <script>
+        // Fonction pour mettre à jour la date et l'heure
+        function updateDateTime() {
+            const now = new Date();
+            const options = { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            };
+            document.getElementById('datetime').innerHTML = now.toLocaleDateString('fr-FR', options);
+        }
+        
+        // Messages alternatifs
+        const messages = [
+            "Chaque grand voyage commence par un premier pas. Nous sommes là pour vous accompagner dans cette aventure !",
+            "La réussite n'est pas un hasard, c'est le résultat du travail, de la persévérance et de l'apprentissage.",
+            "Ensemble, réalisons vos objectifs et transformons vos rêves en réalité.",
+            "Votre présence illumine notre plateforme. Bienvenue dans notre communauté !",
+            "Le meilleur moment pour commencer était hier. Le deuxième meilleur moment, c'est maintenant."
+        ];
+        
+        let messageIndex = 0;
+        
+        function changeMessage() {
+            messageIndex = (messageIndex + 1) % messages.length;
+            document.getElementById('welcomeMessage').innerHTML = messages[messageIndex];
+        }
+        
+        // Initialisation
+        updateDateTime();
+        setInterval(updateDateTime, 1000);
+        
+        // Animation d'apparition
+        document.querySelector('.welcome-container').style.animation = 'fadeIn 1s ease-out';
+        
+        // Ajout de l'animation CSS manuellement
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                    transform: translateY(20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
